@@ -1,4 +1,4 @@
-import { express } from "express";
+import express from "express";
 import { config } from "./config/config";
 import connectDB from "./config/database";
 import globalErrorHandler from "./middlewares/GlobalErrorHandler";
