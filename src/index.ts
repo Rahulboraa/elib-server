@@ -1,12 +1,14 @@
-import express from "express";
+import express, { json } from "express";
 
 const app = express();
-const PORT = process.env.PORT;
+const port = process.env.PORT || 5000;
+
+app.use(json());
 
 app.get("/", (req, res) => {
-  res.send("hello");
+  res.json({ message: "Welcome to elib api's" });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server Running on ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
 });
