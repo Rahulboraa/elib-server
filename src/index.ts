@@ -1,15 +1,24 @@
-import express, { json } from "express";
+import express from "express";
 import { config } from "./config/config";
+import connectDB from "./config/database";
 
 const app = express();
-const PORT = config.port;
+app.use(express.json());
 
-app.use(json());
-
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to elib api's" });
+app.get("/", (_req, res) => {
+  res.json({ message: "Welcome to elib API's" });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${config.port}`);
-});
+const startServer = async () => {
+  try {
+    await connectDB();
+    app.listen(config.port, () => {
+      console.log(`Server running at http://localhost:${config.port}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server", error);
+    process.exit(1);
+  }
+};
+
+startServer();
