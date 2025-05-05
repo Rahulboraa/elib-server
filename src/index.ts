@@ -1,8 +1,11 @@
-import express from "express";
+import { express } from "express";
 import { config } from "./config/config";
 import connectDB from "./config/database";
+import globalErrorHandler from "./middlewares/GlobalErrorHandler";
 
 const app = express();
+
+// Middleware
 app.use(express.json());
 
 app.get("/", (_req, res) => {
@@ -20,5 +23,7 @@ const startServer = async () => {
     process.exit(1);
   }
 };
+
+app.use(globalErrorHandler);
 
 startServer();
